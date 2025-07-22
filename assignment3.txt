@@ -1,0 +1,137 @@
+use  classicmodels;
+select contactLastname,contactFirstname
+from customers
+order by contactLastname;
+
+select contactLastname,contactFirstname
+from customers
+order by contactLastname desc,contactFirstname asc;
+
+select lastname,firstname,jobtitle
+from employees
+where jobtitle='sales rep';
+
+select lastname,firstname,officeCode
+from employees
+where jobtitle='sales rep' and officeCode=1;
+
+select lastname,firstname,officeCode
+from employees
+where jobtitle='sales rep' or officeCode=1;
+
+select lastname,firstname,officeCode
+from employees
+where officeCode between 1 and 3;
+
+select lastname,firstname
+from employees
+where lastname like '%son';
+
+select lastname,firstname,officeCode
+from employees
+where officeCode in (1,2,3);
+
+select distinct lastname
+from employees
+order by lastname;
+
+select officeCode,city,phone,country
+from offices
+where country in ('usa','france');
+
+select productCode,productName,buyPrice
+from products
+where buyPrice between 90 and 100;
+
+select employeeNumber,lastName,firstName
+from employees
+where firstname like 'a%';
+
+select employeeNumber,lastName,firstName
+from employees
+where firstname like 't_m';
+
+select customerNumber,customerName,creditLimit
+from customers
+order by creditLimit desc
+limit 5;
+
+select customerName,country,salesrepemployeenumber
+from customers
+where salesrepemployeenumber is null
+order by customerName;
+
+select customerName,country,salesrepemployeenumber
+from customers
+where salesrepemployeenumber is not null
+order by customerName;
+
+select orderNumber as 'order no',sum(priceEach * quantityOrdered) as  total_amount
+from orderDetails
+group by orderNumber
+having total_amount>6000;
+
+select e.firstName,e.lastName
+from employees e
+order by e.firstName;
+
+select c.contactFirstName,c.contactLastName,o.officeCode,o.state
+from customers c
+inner join offices o
+on c.city=o.city;
+
+select c.contactFirstName,c.contactLastName,o.officeCode,o.state
+from customers c
+left join offices o
+using(city);
+
+select od.productCode,od.quantityOrdered,o.orderDate,o.status
+from orderdetails od
+right join orders o
+using(orderNumber);
+
+select e.firstName as emp_name,em.lastName as manager
+from employees e
+cross join employees em;
+
+select status,count(status) as count_status
+from orders
+group by status;
+
+select year(orderDate) as year,sum(quantityOrdered * priceEach) as total_amount
+from orders
+inner join orderDetails 
+using(orderNumber)
+where status='shipped'
+group by year
+having year>2003;
+
+select ordernumber,sum(quantityOrdered) as itemsCount,sum(priceeach * quantityOrdered) as total_amount
+from orderdetails
+group by ordernumber
+having total_amount>1000;
+
+select lastName,firstName
+from employees
+where officeCode in 
+(select officeCode from offices where country='usa');
+
+select firstName,lastName
+from employees
+union
+select contactFirstName,contactLastName
+from customers;
+
+select firstName
+from employees
+EXCEPT
+select contactFirstName
+from customers;
+
+select firstName
+from employees
+INTERSECT
+select contactFirstName
+from customers;
+
+
