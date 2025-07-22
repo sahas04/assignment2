@@ -1,0 +1,54 @@
+create database sahas;
+use sahas;
+create table employee(
+id int auto_increment primary key,
+emp_name varchar(100) not null,
+dept varchar(100),
+salary int default 20000,
+age int check (age>18));
+
+create table stud(
+std_id int auto_increment primary key,
+std_name varchar(100),
+phn_number int,
+emp_id int,
+foreign key(emp_id) references employee(id));
+
+desc employee;
+desc stud;
+
+
+insert into employee(emp_name,dept,age) values ('sahas','csd',20),('lakhan','cse',21),('jashwanth','mech',22),('aman','civil',21);
+select * from employee;
+
+insert into stud(std_name,phn_number,emp_id) values('ram',987897991,1),('ravi',579787893,2),('nandu',908909976,3);
+select * from employee;
+
+alter table employee
+add phn_number int;
+
+select*from employee;
+
+create table stud1(name varchar(100));
+
+drop table stud1;
+
+alter table employee
+drop column phn_number;
+
+select * from employee;
+
+alter table employee rename to employee1;
+alter table employee1
+change salary income int;
+
+update  employee1 set emp_name='rishi' where age=21;
+
+SET SQL_SAFE_UPDATES = 0;
+UPDATE employee1 SET emp_name='rishi' WHERE age=21;
+SET SQL_SAFE_UPDATES = 1;
+
+select * from employee1;
+
+
+delete from stud where std_name='ram';
