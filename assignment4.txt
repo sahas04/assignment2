@@ -1,0 +1,25 @@
+create database rev;
+use rev;
+
+create table employee(emp_id int primary key auto_increment,
+                      emp_name varchar(50) not null,department varchar(50) not null,designation varchar(50) not null,
+                      salary int check(salary>0),email varchar(50) unique key);
+                      
+insert into employee(emp_name,department,designation,salary,email) values('sahas','DE','IT',2000,'sahas@gmail.com');
+insert into employee(emp_name,department,designation,salary,email) values('greesh','BI','IT',5000,'greesh@gmail.com');
+insert into employee(emp_name,department,designation,salary,email) values('varun','scala','IT',6000,'varun@gmail.com');
+insert into employee(emp_name,department,designation,salary,email) values('lakhan','GEN AI','IT',7000,'lakhan@gmail.com');
+insert into employee(emp_name,department,designation,salary,email) values('ravi','Data bricks','IT',4000,'ravi@gmail.com');
+
+select * from employee;
+
+create index sahas
+on employee(department,designation);
+
+drop index sahas on employee;
+
+create index sahas
+on employee(department);
+
+create index sahas1
+on employee(designation);
